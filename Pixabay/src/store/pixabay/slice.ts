@@ -24,9 +24,9 @@ export const pixabaySlice = createSlice({
       };
     },
 
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
-    },
+    // incrementByAmount: (state, action: PayloadAction<number>) => {
+    //   state.value += action.payload;
+    // },
   },
 });
 

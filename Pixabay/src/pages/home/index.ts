@@ -4,18 +4,26 @@ import {useSelector, useDispatch} from 'react-redux';
 import type {RootState} from '../../store';
 import {fetchInit, fetchStop} from '../../store/pixabay/slice';
 
+import {PixabayService} from '../../services/pixabay';
+
 import View from './view';
 
 const HomeScreen = (): ReactElement => {
   const {loading} = useSelector((state: RootState) => state.pixabay);
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const fetchAPI = async () => {
     dispatch(fetchInit());
 
-    setTimeout(() => {
-      dispatch(fetchStop());
-    }, 8000);
+    const response = await PixabayService.getList();
+
+    console.log('response >>>', response);
+
+    dispatch(fetchStop());
+  };
+
+  useEffect(() => {
+    fetchAPI();
   }, []);
 
   const viewProps = {
