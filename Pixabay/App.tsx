@@ -1,5 +1,8 @@
 import React from 'react';
 import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
+import {store} from './src/store';
+import {Provider} from 'react-redux';
+
 import Home from './src/pages/home';
 
 const App = () => {
@@ -10,11 +13,13 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView style={SafeAreaViewStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+    <Provider store={store}>
+      <SafeAreaView style={SafeAreaViewStyle}>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
 
-      <Home />
-    </SafeAreaView>
+        <Home />
+      </SafeAreaView>
+    </Provider>
   );
 };
 
