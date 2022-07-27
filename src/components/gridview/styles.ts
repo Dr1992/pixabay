@@ -12,11 +12,7 @@ export const Grid = styled.View`
   flex-grow: 1;
   flex-basis: 0;
   margin-bottom: 20px;
-`;
-
-export const GridText = styled.Text`
-  font-size: 24px;
-  color: white;
+  background-color: red;
 `;
 
 export const EmptyView = styled(Grid)`

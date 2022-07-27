@@ -30,6 +30,23 @@ build/
 local.properties
 *.iml
 *.hprof
+.project
+.settings
+.classpath
+
+
+# Android/IntelliJ
+#
+.idea
+.gradle
+local.properties
+*.iml
+*.hprof
+.project
+.settings
+.classpath
+.project
+
 
 # node.js
 #

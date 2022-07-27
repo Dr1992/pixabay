@@ -1,12 +1,15 @@
 import React, {Fragment} from 'react';
-import {IViewProps} from './types';
+import {useSelector} from 'react-redux';
+import type {RootState} from '../../store';
 
 import {WrapperActivityIndicator, ActivityIndicator} from './styles';
 
-const Loading = ({isVisible = true}: IViewProps) => {
+const Loading = () => {
+  const {loading} = useSelector((state: RootState) => state.pixabay);
+
   return (
     <Fragment>
-      {isVisible ? (
+      {loading ? (
         <WrapperActivityIndicator>
           <ActivityIndicator />
         </WrapperActivityIndicator>

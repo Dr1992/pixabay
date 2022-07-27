@@ -1,19 +1,26 @@
 import React, {ReactElement} from 'react';
-import {Grid, GridText, EmptyView, Img} from './styles';
+import {Grid, EmptyView, Img} from './styles';
 
 import {IPixabay} from '../../services/pixabay/types';
 
-const GridView = (item: IPixabay): ReactElement => {
-  console.log('GridView ', item.id);
+const GridView = (item: IPixabay): ReactElement | null => {
+  // console.log('GridView >>>>>>', item);
 
-  if (item.empty) {
-    return <EmptyView />;
-  }
+  // if (!item) {
+  //   return null;
+  // }
+
+  // if (item.empty || !item.previewURL) {
+  //   return <EmptyView />;
+  // }
 
   return (
     <Grid>
-      <Img source={{uri: item.previewURL}} />
-      {/* <GridText>{item.likes}</GridText> */}
+      <Img
+        source={{
+          uri: item.previewURL,
+        }}
+      />
     </Grid>
   );
 };

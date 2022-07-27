@@ -8,31 +8,22 @@ export const pixabaySlice = createSlice({
   initialState,
   reducers: {
     fetchPixabayInit: state => {
-      return {
-        ...state,
-        loading: true,
-        error: false,
-        success: false,
-      };
+      state.loading = true;
+      state.error = false;
+      state.success = false;
     },
 
     fetchPixabaySuccess: (state, action: PayloadAction<IPixabayResponse>) => {
-      return {
-        ...state,
-        ...action.payload,
-        loading: false,
-        error: false,
-        success: true,
-      };
+      state.loading = false;
+      state.error = false;
+      state.success = true;
+      state.hits = [...state.hits, ...action.payload.hits];
     },
 
     fetchPixabayError: state => {
-      return {
-        ...state,
-        loading: false,
-        error: true,
-        success: false,
-      };
+      state.loading = false;
+      state.error = true;
+      state.success = false;
     },
   },
 });

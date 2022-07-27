@@ -7,14 +7,14 @@ import Loading from '../../components/loading';
 
 import {Container} from './styles';
 
-const HomeView = ({loading, onBlur, hits}: IViewProps) => {
+const HomeView = ({onBlur, loadMore}: IViewProps) => {
   return (
     <Container>
       <TextInput onBlur={onBlur} />
 
-      <List hits={hits} />
+      <List loadMore={loadMore} />
 
-      <Loading isVisible={loading} />
+      <Loading />
     </Container>
   );
 };

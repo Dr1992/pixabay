@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/diegoalmeida/Documents/react-native-demo/pixabayDemoProject/Pixabay/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-large-v4/values-large-v4.xml",
+            "outputFile": "/Users/diegoalmeida/Documents/react-native-demo/pixabayDemoProject/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-large-v4/values-large-v4.xml",
             "map": [
                 {
                     "source": "/Users/diegoalmeida/.gradle/caches/transforms-3/d66390e9f57cd03f4fe478c67b878d95/transformed/material-1.1.0/res/values-large-v4/values-large-v4.xml",
