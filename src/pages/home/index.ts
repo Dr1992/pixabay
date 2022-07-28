@@ -58,10 +58,6 @@ const HomeScreen = (): ReactElement => {
     setPage(2);
   }, []);
 
-  // useEffect(() => {
-  //   console.log('useEffect hits >>>>', hits);
-  // }, [hits]);
-
   const viewProps = {
     onBlur,
     loadMore,

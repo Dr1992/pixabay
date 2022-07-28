@@ -12,7 +12,6 @@ export const Grid = styled.View`
   flex-grow: 1;
   flex-basis: 0;
   margin-bottom: 20px;
-  background-color: red;
 `;
 
 export const EmptyView = styled(Grid)`
@@ -20,7 +19,6 @@ export const EmptyView = styled(Grid)`
 `;
 
 export const Img = styled.Image`
-  flex: 1;
   width: ${width};
   height: ${height};
 `;

@@ -16,7 +16,6 @@ export const PixabayService = {
         .replace('{q}', q)
         .replace('{page}', page.toString());
 
-      console.log(url);
       const response: AxiosResponse = await api.get(url);
 
       if (HttpCodes.SUCCESS !== response.status) {
@@ -25,7 +24,6 @@ export const PixabayService = {
 
       return response.data;
     } catch (error) {
-      console.log(error);
       return null;
     }
   },

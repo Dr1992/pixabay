@@ -3,5 +3,5 @@ import {FlatList} from 'react-native';
 
 export const List = styled.FlatList`
   margin-top: 10px;
-  background-color: green;
+  background-color: #000000;
 ` as unknown as FlatList;

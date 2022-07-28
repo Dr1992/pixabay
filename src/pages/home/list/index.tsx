@@ -15,11 +15,9 @@ const columns = 2;
 const createRows = (hits: IPixabay[]): IPixabay[] => {
   const data = [...hits];
 
-  // if (data && data.length % 2 !== 0) {
-  //   data.push({...initialState.hits[0], ...{empty: true}});
-  // }
-
-  debugger;
+  if (data && data.length % 2 !== 0) {
+    data.push({...initialState.hits[0], ...{empty: true}});
+  }
 
   return data;
 };
@@ -29,26 +27,12 @@ const renderItem = (item: IPixabay) => <GridView {...item} />;
 const ListView = ({loadMore}: IViewProps): ReactElement => {
   const {hits} = useSelector((state: RootState) => state.pixabay);
 
-  console.log('hits >>>>>', hits);
-
   return (
     <List
-      data={hits}
-      renderItem={({item}) => {
-        console.log('renderItem', item);
-
-        return renderItem(item);
-      }}
-      key={(item: IPixabay) => {
-        console.log('key', item.id);
-
-        return item.id.toString();
-      }}
-      keyExtractor={(item: IPixabay) => {
-        console.log('keyExtractor', item.id);
-
-        return item.previewURL.toString();
-      }}
+      data={createRows(hits)}
+      renderItem={({item}) => renderItem(item)}
+      key={(item: IPixabay) => item.id.toString()}
+      keyExtractor={(item: IPixabay) => item.previewURL.toString()}
       numColumns={columns}
       showsVerticalScrollIndicator={false}
       onEndReached={() => {

@@ -4,15 +4,13 @@ import {Grid, EmptyView, Img} from './styles';
 import {IPixabay} from '../../services/pixabay/types';
 
 const GridView = (item: IPixabay): ReactElement | null => {
-  // console.log('GridView >>>>>>', item);
+  if (!item) {
+    return null;
+  }
 
-  // if (!item) {
-  //   return null;
-  // }
-
-  // if (item.empty || !item.previewURL) {
-  //   return <EmptyView />;
-  // }
+  if (item.empty || !item.previewURL) {
+    return <EmptyView />;
+  }
 
   return (
     <Grid>
