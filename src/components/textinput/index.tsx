@@ -1,9 +1,14 @@
 import React, {ReactElement} from 'react';
-import {IViewProps} from './types';
-import {Input} from './styles';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const TextInput = ({onBlur}: IViewProps): ReactElement => {
-  return <Input onEndEditing={onBlur} />;
-};
+import {IViewProps} from './types';
+import {WrapperInput, Input} from './styles';
+
+const TextInput = ({onBlur}: IViewProps): ReactElement => (
+  <WrapperInput>
+    <Icon name="magnify" color="#000000" size={24} />
+    <Input onEndEditing={onBlur} />
+  </WrapperInput>
+);
 
 export default TextInput;

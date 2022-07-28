@@ -31,14 +31,7 @@ const HomeScreen = (): ReactElement => {
       return;
     }
 
-    debugger;
-
-    // const hitList =
-    //   hits.length === 1 ? response : {hits: [...hits, ...response.hits]};
-
-    // console.log('fetchAPI >>>>', hitList);
-
-    // setTerm(q);
+    setTerm(q);
     dispatch(fetchPixabaySuccess(response));
   };
 
