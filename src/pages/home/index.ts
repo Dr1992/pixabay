@@ -1,22 +1,17 @@
 import {createElement, ReactElement, useEffect, useState} from 'react';
 import {NativeSyntheticEvent, TextInputEndEditingEventData} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import {
   fetchPixabayInit,
   fetchPixabaySuccess,
   fetchPixabayError,
 } from '../../store/pixabay/slice';
-
-import type {RootState} from '../../store';
-
 import {PixabayService} from '../../services/pixabay';
 
 import View from './view';
 
 const HomeScreen = (): ReactElement => {
-  const {hits} = useSelector((state: RootState) => state.pixabay);
-
   const [page, setPage] = useState<number>(1);
   const [term, setTerm] = useState<string>('');
 

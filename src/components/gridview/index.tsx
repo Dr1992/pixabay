@@ -1,9 +1,15 @@
 import React, {ReactElement} from 'react';
-import {Grid, EmptyView, Img} from './styles';
+import {TouchableOpacity} from 'react-native';
 
+import {Grid, EmptyView, Img} from './styles';
 import {IPixabay} from '../../services/pixabay/types';
 
-const GridView = (item: IPixabay): ReactElement | null => {
+interface Props {
+  item: IPixabay;
+  action: (item: IPixabay) => void;
+}
+
+const GridView = ({item, action}: Props): ReactElement | null => {
   if (!item) {
     return null;
   }
@@ -13,13 +19,15 @@ const GridView = (item: IPixabay): ReactElement | null => {
   }
 
   return (
-    <Grid>
-      <Img
-        source={{
-          uri: item.previewURL,
-        }}
-      />
-    </Grid>
+    <TouchableOpacity onPress={() => action(item)}>
+      <Grid>
+        <Img
+          source={{
+            uri: item.previewURL,
+          }}
+        />
+      </Grid>
+    </TouchableOpacity>
   );
 };
 

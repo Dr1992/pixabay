@@ -1,10 +1,13 @@
 import React, {ReactElement} from 'react';
 import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+
 import type {RootState} from '../../../store';
 
 import {IPixabay} from '../../../services/pixabay/types';
 import {initialState} from '../../../store/pixabay/types';
 import {IViewProps} from '../types';
+import PathRoutes from '../../../helper/navigation/pathRoutes';
 
 import GridView from '../../../components/gridview';
 
@@ -22,10 +25,17 @@ const createRows = (hits: IPixabay[]): IPixabay[] => {
   return data;
 };
 
-const renderItem = (item: IPixabay) => <GridView {...item} />;
-
 const ListView = ({loadMore}: IViewProps): ReactElement => {
+  const navigation = useNavigation();
   const {hits} = useSelector((state: RootState) => state.pixabay);
+
+  const openDetail = (item: IPixabay) => {
+    navigation.navigate(PathRoutes.DETAIL, {...item});
+  };
+
+  const renderItem = (item: IPixabay) => (
+    <GridView item={item} action={openDetail} />
+  );
 
   return (
     <List
