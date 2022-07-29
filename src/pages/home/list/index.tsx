@@ -2,53 +2,58 @@ import React, {ReactElement} from 'react';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 
+import {useRef} from 'react';
 import type {RootState} from '../../../store';
-
 import {IPixabay} from '../../../services/pixabay/types';
-import {initialState} from '../../../store/pixabay/types';
 import {IViewProps} from '../types';
 import PathRoutes from '../../../helper/navigation/pathRoutes';
+import {List, Grid, Img, WrapperGridItem} from './styles';
 
-import GridView from '../../../components/gridview';
-
-import {List} from './styles';
-
-const columns = 2;
-
-const createRows = (hits: IPixabay[]): IPixabay[] => {
-  const data = [...hits];
-
-  if (data && data.length % 2 !== 0) {
-    data.push({...initialState.hits[0], ...{empty: true}});
-  }
-
-  return data;
-};
+const COLUMNS = 2;
+const BULK = 20;
 
 const ListView = ({loadMore}: IViewProps): ReactElement => {
   const navigation = useNavigation();
+  const flatListRef = useRef();
   const {hits} = useSelector((state: RootState) => state.pixabay);
 
   const openDetail = (item: IPixabay) => {
     navigation.navigate(PathRoutes.DETAIL, {...item});
   };
 
-  const renderItem = (item: IPixabay) => (
-    <GridView item={item} action={openDetail} />
-  );
+  const renderItem = (item: IPixabay) => {
+    return (
+      <WrapperGridItem onPress={() => openDetail(item)}>
+        <Grid>
+          <Img
+            source={{
+              uri: item.previewURL,
+            }}
+          />
+        </Grid>
+      </WrapperGridItem>
+    );
+  };
+
+  if (hits?.length <= BULK) {
+    flatListRef?.current?.scrollToOffset({animated: false, offset: 0});
+  }
 
   return (
     <List
-      data={createRows(hits)}
-      renderItem={({item}) => renderItem(item)}
-      key={(item: IPixabay) => item.id.toString()}
-      keyExtractor={(item: IPixabay) => item.previewURL.toString()}
-      numColumns={columns}
+      ref={flatListRef}
+      data={hits}
+      renderItem={({item}: {item: IPixabay}) => renderItem(item)}
+      key={(item: IPixabay, index: number) => `key-${item.id}${index}`}
+      keyExtractor={(item: IPixabay, index: number) => `key-${item.id}${index}`}
+      numColumns={COLUMNS}
       showsVerticalScrollIndicator={false}
       onEndReached={() => {
         loadMore();
       }}
       onEndReachedThreshold={0.5}
+
+      // ListFooterComponent={() => renderFooter(numColumns)}
     />
   );
 };

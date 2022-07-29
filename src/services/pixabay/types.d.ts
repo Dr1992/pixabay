@@ -6,7 +6,6 @@ export interface IPixabay {
   imageWidth: number;
   imageHeight: number;
   user: number;
-  empty?: boolean;
 }
 
 export interface IPixabayResponse {

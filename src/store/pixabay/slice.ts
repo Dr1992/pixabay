@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
 import {initialState} from './types';
-import {IPixabayResponse} from '../../services/pixabay/types';
+import {IPixabay} from '../../services/pixabay/types';
 
 export const pixabaySlice = createSlice({
   name: 'pixabay',
@@ -13,11 +13,11 @@ export const pixabaySlice = createSlice({
       state.success = false;
     },
 
-    fetchPixabaySuccess: (state, action: PayloadAction<IPixabayResponse>) => {
+    fetchPixabaySuccess: (state, action: PayloadAction<IPixabay[]>) => {
       state.loading = false;
       state.error = false;
       state.success = true;
-      state.hits = [...state.hits, ...action.payload.hits];
+      state.hits = action.payload;
     },
 
     fetchPixabayError: state => {
