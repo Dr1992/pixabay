@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import SplashScreen from 'react-native-splash-screen';
 import {Provider} from 'react-redux';
 import {store} from './src/store';
 
@@ -9,6 +10,10 @@ import PathRoutes from './src/helper/navigation/pathRoutes';
 import PathScreen from './src/helper/navigation/pathScreens';
 
 const App = () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const SafeAreaViewStyle = {
