@@ -20,12 +20,14 @@ import {
 } from './styles';
 
 const COLUMNS = 2;
-const BULK = 20;
+const BULK = 60;
 
 const Success = ({loadMore}: IViewProps) => {
   const navigation = useNavigation();
   const flatListRef = useRef();
-  const {hits, loadingMore} = useSelector((state: RootState) => state.pixabay);
+  const {hits, loadingMore, error} = useSelector(
+    (state: RootState) => state.pixabay,
+  );
 
   const openDetail = (item: IPixabay) => {
     navigation.navigate(PathRoutes.DETAIL, {...item});
@@ -49,6 +51,10 @@ const Success = ({loadMore}: IViewProps) => {
     flatListRef?.current?.scrollToOffset({animated: false, offset: 0});
   }
 
+  if (error) {
+    return null;
+  }
+
   return (
     <List
       ref={flatListRef}
@@ -61,13 +67,14 @@ const Success = ({loadMore}: IViewProps) => {
       onEndReached={() => {
         loadMore();
       }}
-      onEndReachedThreshold={0.5}
+      onEndReachedThreshold={0.8}
+      initialNumToRender={BULK / 2}
       ListFooterComponent={<Placeholder isVisible={loadingMore} />}
     />
   );
 };
 
-const Error = (errorAction: () => void) => {
+const Error = (errorAction: (q: string, pg: number) => void) => {
   const {error} = useSelector((state: RootState) => state.pixabay);
 
   if (!error) {
@@ -91,6 +98,7 @@ const ListView = ({loadMore, errorAction}: IViewProps): ReactElement => {
   return (
     <WrapperList>
       <Placeholder isVisible={loading} />
+
       {Success({loadMore})}
 
       {Error(errorAction)}

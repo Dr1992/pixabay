@@ -22,8 +22,6 @@ const HomeScreen = (): ReactElement => {
   const dispatch = useDispatch();
 
   const fetchAPI = async (q: string, pg: number) => {
-    console.log('fetchAPI');
-
     const response = await PixabayService.getList(q, pg);
 
     if (!response) {
@@ -34,9 +32,7 @@ const HomeScreen = (): ReactElement => {
 
     const list = pg > 1 ? [...hits, ...response.hits] : [...response.hits];
 
-    setTimeout(() => {
-      dispatch(fetchPixabaySuccess(list));
-    }, 2000);
+    dispatch(fetchPixabaySuccess(list));
 
     setTerm(q);
   };
@@ -66,6 +62,7 @@ const HomeScreen = (): ReactElement => {
 
   useEffect(() => {
     dispatch(fetchPixabayInit());
+
     fetchAPI('', page);
 
     setPage(2);
