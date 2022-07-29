@@ -1,8 +1,9 @@
 import React from 'react';
 
+import {IViewProps} from './types';
 import {AnimatedView} from './style';
 
-const Skeleton = props => {
+const Skeleton = (props: IViewProps) => {
   const {animation, marginHorizontal, marginVertical, height, width} = props;
 
   return (
