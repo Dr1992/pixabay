@@ -7,15 +7,25 @@ import type {RootState} from '../../../store';
 import {IPixabay} from '../../../services/pixabay/types';
 import {IViewProps} from '../types';
 import PathRoutes from '../../../helper/navigation/pathRoutes';
-import {List, Grid, Img, WrapperGridItem} from './styles';
+import Placeholder from '../placeholder';
+import {
+  WrapperList,
+  List,
+  Grid,
+  Img,
+  WrapperGridItem,
+  WrapperError,
+  ErrorLabel,
+  TryAgain,
+} from './styles';
 
 const COLUMNS = 2;
 const BULK = 20;
 
-const ListView = ({loadMore}: IViewProps): ReactElement => {
+const Success = ({loadMore}: IViewProps) => {
   const navigation = useNavigation();
   const flatListRef = useRef();
-  const {hits} = useSelector((state: RootState) => state.pixabay);
+  const {hits, loadingMore} = useSelector((state: RootState) => state.pixabay);
 
   const openDetail = (item: IPixabay) => {
     navigation.navigate(PathRoutes.DETAIL, {...item});
@@ -52,9 +62,39 @@ const ListView = ({loadMore}: IViewProps): ReactElement => {
         loadMore();
       }}
       onEndReachedThreshold={0.5}
-
-      // ListFooterComponent={() => renderFooter(numColumns)}
+      ListFooterComponent={<Placeholder isVisible={loadingMore} />}
     />
+  );
+};
+
+const Error = (errorAction: () => void) => {
+  const {error} = useSelector((state: RootState) => state.pixabay);
+
+  if (!error) {
+    return null;
+  }
+
+  return (
+    <WrapperError>
+      <ErrorLabel color={'white'}> Something went wrong </ErrorLabel>
+
+      <TryAgain onPress={() => errorAction('', 1)}>
+        <ErrorLabel color={'black'}> Try again </ErrorLabel>
+      </TryAgain>
+    </WrapperError>
+  );
+};
+
+const ListView = ({loadMore, errorAction}: IViewProps): ReactElement => {
+  const {loading} = useSelector((state: RootState) => state.pixabay);
+
+  return (
+    <WrapperList>
+      <Placeholder isVisible={loading} />
+      {Success({loadMore})}
+
+      {Error(errorAction)}
+    </WrapperList>
   );
 };
 

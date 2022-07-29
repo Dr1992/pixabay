@@ -16,6 +16,8 @@ export const PixabayService = {
         .replace('{q}', q)
         .replace('{page}', page.toString());
 
+      console.log('url >>>', url);
+
       const response: AxiosResponse = await api.get(url);
 
       if (HttpCodes.SUCCESS !== response.status) {

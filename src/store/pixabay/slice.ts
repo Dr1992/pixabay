@@ -9,12 +9,21 @@ export const pixabaySlice = createSlice({
   reducers: {
     fetchPixabayInit: state => {
       state.loading = true;
+      state.loadingMore = false;
+      state.error = false;
+      state.success = false;
+    },
+
+    fetchPixabayLoadMore: state => {
+      state.loading = false;
+      state.loadingMore = true;
       state.error = false;
       state.success = false;
     },
 
     fetchPixabaySuccess: (state, action: PayloadAction<IPixabay[]>) => {
       state.loading = false;
+      state.loadingMore = false;
       state.error = false;
       state.success = true;
       state.hits = action.payload;
@@ -22,6 +31,7 @@ export const pixabaySlice = createSlice({
 
     fetchPixabayError: state => {
       state.loading = false;
+      state.loadingMore = false;
       state.error = true;
       state.success = false;
     },
@@ -29,7 +39,11 @@ export const pixabaySlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const {fetchPixabayInit, fetchPixabaySuccess, fetchPixabayError} =
-  pixabaySlice.actions;
+export const {
+  fetchPixabayInit,
+  fetchPixabayLoadMore,
+  fetchPixabaySuccess,
+  fetchPixabayError,
+} = pixabaySlice.actions;
 
 export default pixabaySlice.reducer;

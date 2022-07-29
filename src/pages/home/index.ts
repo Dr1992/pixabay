@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import {
   fetchPixabayInit,
+  fetchPixabayLoadMore,
   fetchPixabaySuccess,
   fetchPixabayError,
 } from '../../store/pixabay/slice';
@@ -21,6 +22,8 @@ const HomeScreen = (): ReactElement => {
   const dispatch = useDispatch();
 
   const fetchAPI = async (q: string, pg: number) => {
+    console.log('fetchAPI');
+
     const response = await PixabayService.getList(q, pg);
 
     if (!response) {
@@ -30,12 +33,22 @@ const HomeScreen = (): ReactElement => {
     }
 
     const list = pg > 1 ? [...hits, ...response.hits] : [...response.hits];
-    dispatch(fetchPixabaySuccess(list));
+
+    setTimeout(() => {
+      dispatch(fetchPixabaySuccess(list));
+    }, 2000);
 
     setTerm(q);
   };
 
+  const errorAction = () => {
+    dispatch(fetchPixabayInit());
+    fetchAPI('', 1);
+  };
+
   const loadMore = async () => {
+    dispatch(fetchPixabayLoadMore());
+
     await fetchAPI(term, page);
 
     setPage(page + 1);
@@ -61,6 +74,7 @@ const HomeScreen = (): ReactElement => {
   const viewProps = {
     onBlur,
     loadMore,
+    errorAction,
   };
 
   return createElement(View, viewProps);
