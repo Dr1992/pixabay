@@ -30,11 +30,13 @@ const HomeScreen = (): ReactElement => {
       return;
     }
 
-    const list = pg > 1 ? [...hits, ...response.hits] : [...response.hits];
+    if (response.hits?.length) {
+      const list = pg > 1 ? [...hits, ...response.hits] : [...response.hits];
 
-    dispatch(fetchPixabaySuccess(list));
+      dispatch(fetchPixabaySuccess(list));
 
-    setTerm(q);
+      setTerm(q);
+    }
   };
 
   const errorAction = () => {

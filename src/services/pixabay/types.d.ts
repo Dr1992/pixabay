@@ -3,8 +3,6 @@ export interface IPixabay {
   previewURL: string;
   largeImageURL: string;
   tags: string;
-  imageWidth: number;
-  imageHeight: number;
   user: number;
 }
 

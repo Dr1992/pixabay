@@ -28,4 +28,5 @@ export const WrapperContent = styled.View`
 export const Label = styled.Text`
   font-size: 17px;
   font-weight: bold;
+  color: white;
 `;

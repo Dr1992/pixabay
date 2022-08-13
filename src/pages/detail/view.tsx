@@ -4,13 +4,7 @@ import {IPixabay} from '../../services/pixabay/types';
 
 import {Container, Img, WrapperContent, Label} from './styles';
 
-const DetailView = ({
-  largeImageURL,
-  tags,
-  imageWidth,
-  imageHeight,
-  user,
-}: IPixabay) => {
+const DetailView = ({largeImageURL, tags, user}: IPixabay) => {
   return (
     <Container>
       <ScrollView>
@@ -28,11 +22,6 @@ const DetailView = ({
         <WrapperContent>
           <Label> Tags </Label>
           <Label>{tags} </Label>
-        </WrapperContent>
-
-        <WrapperContent>
-          <Label> Resolution </Label>
-          <Label>{`${imageWidth} x ${imageHeight}`}</Label>
         </WrapperContent>
       </ScrollView>
     </Container>

@@ -1,12 +1,12 @@
 import React, {ReactElement} from 'react';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 import {useRef} from 'react';
 import type {RootState} from '../../../store';
 import {IPixabay} from '../../../services/pixabay/types';
-import {IViewProps} from '../types';
-import PathRoutes from '../../../helper/navigation/pathRoutes';
+import {IViewProps, IFlatlist} from '../types';
 import Placeholder from '../placeholder';
 import {
   WrapperList,
@@ -22,15 +22,19 @@ import {
 const COLUMNS = 2;
 const BULK = 60;
 
-const Success = ({loadMore}: IViewProps) => {
-  const navigation = useNavigation();
-  const flatListRef = useRef();
+export type RootStackParamList = {
+  Detail: {};
+};
+
+const Success = (loadMore: () => void) => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const flatListRef = useRef<IFlatlist>();
   const {hits, loadingMore, error} = useSelector(
     (state: RootState) => state.pixabay,
   );
 
   const openDetail = (item: IPixabay) => {
-    navigation.navigate(PathRoutes.DETAIL, {...item});
+    navigation.navigate('Detail', {...item});
   };
 
   const renderItem = (item: IPixabay) => {
@@ -99,7 +103,7 @@ const ListView = ({loadMore, errorAction}: IViewProps): ReactElement => {
     <WrapperList>
       <Placeholder isVisible={loading} />
 
-      {Success({loadMore})}
+      {Success(loadMore)}
 
       {Error(errorAction)}
     </WrapperList>
